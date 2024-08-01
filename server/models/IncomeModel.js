@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const incomeSchema = mongoose.Schema({
+  userId: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
@@ -31,7 +35,7 @@ const incomeSchema = mongoose.Schema({
     type:String,
     required:true,
     trim: true,
-    maxLength: 20,
+    maxLength: 50,
   }
 },{
     timestamps:true

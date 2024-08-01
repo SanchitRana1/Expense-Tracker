@@ -5,12 +5,13 @@ import connectDB from "./db/db.js"
 import { readdirSync } from "fs"
 import transactionRoute from "./routes/transactionRoute.js"
 import expenseRoute from "./routes/expenseRoute.js"
+import userRoute from "./routes/userRoute.js"
 
 
 const app = express();
 
 // MIDDLEWARES
-app.use(express.json());
+app.use(express.json({limit:"50mb"}));
 app.use(cors());
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.get("/",(req,res)=>{
 
 app.use("/api/v1/income",transactionRoute )
 app.use("/api/v1/expense",expenseRoute )
+app.use("/api/v1/user",userRoute )
 
 app.listen(PORT,()=>{
     connectDB()
