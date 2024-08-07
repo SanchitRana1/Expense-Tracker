@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { edit } from "../utils/icons";
 
 import Dropzone from "react-dropzone";
-import { BASE_URL } from "../utils/constants";
+import {USER_URL } from "../utils/constants";
 import { useMediaQuery } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setUser } from "../utils/userSlice";
@@ -50,7 +50,7 @@ const LoginPage = () => {
         }
         formData.profilePicture = pictureBase64;
 
-        const response = await fetch(`${BASE_URL}/user/register`, {
+        const response = await fetch(`${USER_URL}/register`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -72,7 +72,7 @@ const LoginPage = () => {
   const login = async () => {
     try {
       // setLoading(true)
-      const response = await fetch(`${BASE_URL}/user/login`, {
+      const response = await fetch(`${USER_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

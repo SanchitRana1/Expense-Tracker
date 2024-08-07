@@ -18,12 +18,12 @@ router.route("/add-expense").post(verifyToken, async (req, res) => {
       res.status(400).json({ success: false, message: "User not found" });
     } else {
       //  validations
-      if (!title || !amount || !category || !date || !description) {
+      if (!title || !parsedAmount || !category || !date || !description) {
         res
           .status(400)
           .json({ success: false, message: "All fields are required!" });
       }
-      if (amount <= 0 || typeof amount !== "number") {
+      if (parsedAmount <= 0 || typeof parsedAmount !== "number") {
         res
           .status(400)
           .json({ success: false, message: "Amount must be positive!" });

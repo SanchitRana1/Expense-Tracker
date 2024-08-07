@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { plus } from "../utils/icons";
-import { BASE_URL } from "../utils/constants";
+import { EXPENSE_URL } from "../utils/constants";
 import { useSelector } from "react-redux";
 
-const ExpenseForm = ({getExpenses}) => {
+const ExpenseForm = ({ getExpenses }) => {
   const { user, token } = useSelector((store) => store?.user);
   const userId = user?._id;
   const emptyForm = {
@@ -15,7 +15,7 @@ const ExpenseForm = ({getExpenses}) => {
     category: "",
     description: "",
     userId,
-  }
+  };
   const [form, setForm] = useState(emptyForm);
   const { title, amount, date, category, description } = form;
 
@@ -30,7 +30,7 @@ const ExpenseForm = ({getExpenses}) => {
   const onHandleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${BASE_URL}/expense/add-expense`, {
+      const response = await fetch(`${EXPENSE_URL}/add-expense`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -39,7 +39,7 @@ const ExpenseForm = ({getExpenses}) => {
         body: JSON.stringify(form),
       });
       const data = await response.json();
-      if(data.success){
+      if (data.success) {
         resetForm();
         getExpenses();
       }
@@ -53,6 +53,7 @@ const ExpenseForm = ({getExpenses}) => {
       <form onSubmit={onHandleSubmit} className="flex flex-col gap-6">
         <div className="">
           <input
+            maxLength={50}
             className="py-2 px-4 rounded-md border-2 border-[white] w-[100%] outline-none"
             required
             type="text"
@@ -86,7 +87,7 @@ const ExpenseForm = ({getExpenses}) => {
             }}
           />
         </div>
-        <div className="flex justify-end">
+        <div className="flex">
           <select
             className="py-2 px-4 rounded-md border-2 border-[white] w-[80%] focus:bg-[white] outline-none"
             required
@@ -96,20 +97,21 @@ const ExpenseForm = ({getExpenses}) => {
             onChange={handleInput}
           >
             <option disabled value="">
-              Select Options
+              Select Category
             </option>
-            <option value={`salary`}>Salary</option>
-            <option value={`freelancing`}>Freelancing</option>
-            <option value={`investments`}>Investments</option>
-            <option value={`stocks`}>Stocks</option>
-            <option value={`bitcoins`}>Bitcoins</option>
-            <option value={`bank`}>Bank</option>
-            <option value={`youtube`}>Youtube</option>
+            <option value={`education`}>Education</option>
+            <option value={`groceries`}>Groceries</option>
+            <option value={`health`}>Health</option>
+            <option value={`subscriptions`}>Subscriptions</option>
+            <option value={`takeways`}>Takeways</option>
+            <option value={`clothing`}>Clothing</option>
+            <option value={`travelling`}>Travelling</option>
             <option value={`other`}>Other</option>
           </select>
         </div>
         <div className="">
           <textarea
+            maxLength={50}
             className="py-2 px-4 rounded-md border-2 border-[white] w-[100%] outline-none"
             required
             type="text"
@@ -120,7 +122,7 @@ const ExpenseForm = ({getExpenses}) => {
           />
         </div>
         <div className="submit">
-          <button className="bg-[#6464ff] hover:bg-[#5353d5] text-[white] px-8 py-2 rounded-md text-lg font-semibold">
+          <button className="bg-[#ab2e2e] hover:bg-[#942828] hover:shadow-lg text-[white] px-8 py-2 rounded-md text-lg font-semibold">
             {plus} Add Expense
           </button>
         </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import { bitcoin, book, calender, card, circle, clothing, comment, dollar, food, freelance, medical, money, piggy, stocks, takeaway, trash, tv, users, yt } from "../utils/icons";
+import { dateFormat } from "../utils/dateFormat.js";
 
 const IncomeItem = ({
   id,title,amount,date,category,description,deleteItem,indicateColor,type,}) => {
@@ -48,13 +49,13 @@ const IncomeItem = ({
           <div className="flex items-center gap-4">
             <p className="flex items-center gap-1 opacity-80">{dollar} {amount}</p>
             <p className="flex items-center gap-2 opacity-80">
-              {calender} {date.substring(0, 10)}
+              {calender} {dateFormat(date)}
             </p>
             <p className="flex items-center gap-2 opacity-80">
               {comment} {description}
             </p>
           </div>
-          <div className="btnCon text-white bg-[#0e0e4d] p-2 rounded-full w-10  flex justify-center">
+          <div className="btnCon p-2 rounded-full w-10  flex justify-center cursor-pointer">
             <button onClick={()=>{deleteItem(id)}}>{trash}</button>
           </div>
         </div>

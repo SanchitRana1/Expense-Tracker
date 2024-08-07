@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "@mui/material";
-import Form from "./Form";
-import { BASE_URL } from "../utils/constants";
-import { addExpenses, addIncomes } from "../utils/appSlice";
+import { EXPENSE_URL } from "../utils/constants";
+import { addExpenses } from "../utils/appSlice";
 import { useDispatch, useSelector } from "react-redux";
 import IncomeItem from "./IncomeItem";
-import { dollar } from "../utils/icons";
 import ExpenseForm from "./ExpenseForm";
 
 const Expenses = () => {
@@ -18,7 +16,7 @@ const Expenses = () => {
   const getExpenses = async () => {
     try {
       const response = await fetch(
-        `${BASE_URL}/expense/get-expenses/${user?._id}`,
+        `${EXPENSE_URL}/get-expenses/${user?._id}`,
         {
           method: "GET",
           headers: {
@@ -37,7 +35,7 @@ const Expenses = () => {
   const deleteExpense = async (id) => {
     try {
       const response = await fetch(
-        `${BASE_URL}/expense/delete-expense/${id}`,
+        `${EXPENSE_URL}/delete-expense/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -50,7 +48,6 @@ const Expenses = () => {
       if(expense?.success){
         getExpenses();
       }
-      // dispatch(addIncomes(income?.data));
     } catch (error) {
       console.log(error);
     }
@@ -65,7 +62,7 @@ const Expenses = () => {
       <div className="w-[100%] py-8 px-6">
         <h1 className="text-5xl font-bold font-sans">Expenses</h1>
         <h2 className="flex justify-center items-center bg-[#fcf6f9] border-4 border-[white] shadow-sm rounded-xl py-4 my-8 text-center text-3xl font-nunito font-semibold gap-2">Total Expense: 
-          <span className="px-2 text-4xl text-[#25b025]">₹ {totalExpense}</span>
+          <span className="px-2 text-4xl text-[#ab2e2e]">₹ {totalExpense}</span>
            </h2>
         <div className={`w-full flex gap-8 ${isNonMobileDevice ? "flex-row":"flex-col"}`}>
           <div className="form-container py-4 basis-1/3 ">

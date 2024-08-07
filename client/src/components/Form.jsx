@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { plus } from "../utils/icons";
-import { BASE_URL } from "../utils/constants";
+import { BASE_URL,INCOME_URL } from "../utils/constants";
 import { useSelector } from "react-redux";
 
 const Form = ({getIncomes}) => {
@@ -31,7 +31,7 @@ const Form = ({getIncomes}) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${BASE_URL}/income/add-income`, {
+      const response = await fetch(`${INCOME_URL}/add-income`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -54,6 +54,7 @@ const Form = ({getIncomes}) => {
       <form onSubmit={onHandleSubmit} className="flex flex-col gap-6">
         <div className="">
           <input
+          maxLength={50}
             className="py-2 px-4 rounded-md border-2 border-[white] w-[100%] outline-none"
             required
             type="text"
@@ -87,7 +88,7 @@ const Form = ({getIncomes}) => {
             }}
           />
         </div>
-        <div className="flex justify-end">
+        <div className="flex">
           <select
             className="py-2 px-4 rounded-md border-2 border-[white] w-[80%] focus:bg-[white] outline-none"
             required
@@ -97,7 +98,7 @@ const Form = ({getIncomes}) => {
             onChange={handleInput}
           >
             <option disabled value="">
-              Select Options
+              Select Category
             </option>
             <option value={`salary`}>Salary</option>
             <option value={`freelancing`}>Freelancing</option>
@@ -111,6 +112,7 @@ const Form = ({getIncomes}) => {
         </div>
         <div className="">
           <textarea
+          maxLength={50}
             className="py-2 px-4 rounded-md border-2 border-[white] w-[100%] outline-none"
             required
             type="text"
@@ -121,7 +123,7 @@ const Form = ({getIncomes}) => {
           />
         </div>
         <div className="submit">
-          <button className="bg-[#6464ff] hover:bg-[#5353d5] text-[white] px-8 py-2 rounded-md text-lg font-semibold">
+          <button className="bg-[#6464ff] hover:bg-[#5353d5] hover:shadow-lg  text-[white] px-8 py-2 rounded-md text-lg font-semibold">
             {plus} Add Income
           </button>
         </div>

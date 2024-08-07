@@ -33,7 +33,7 @@ const Home = () => {
         <div className={`z-10 flex gap-4 ${!isNonMobileDevice && "mx-auto"}`}>
           <Navigation active={active} setActive={setActive} userData={User}/>
         </div>
-        <main className="flex-1 bg-[#f2f2f2dd] border-4 border-[white] z-10 rounded-xl overflow-auto overflow-x-hidden">
+        <main className="flex-1 bg-[#f2f2f2dd] border-4 border-[white] z-10 rounded-xl overflow-x-hidden">
           {displayData()}
         </main>
         {/* <p className="font-nunito text-black text-4xl">Khoya Khoya Chand</p> */}

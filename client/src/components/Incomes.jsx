@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "@mui/material";
 import Form from "./Form";
-import { BASE_URL } from "../utils/constants";
+import {INCOME_URL } from "../utils/constants";
 import { addIncomes } from "../utils/appSlice";
 import { useDispatch, useSelector } from "react-redux";
 import IncomeItem from "./IncomeItem";
-import { dollar } from "../utils/icons";
 
 const Incomes = () => {
   const isNonMobileDevice = useMediaQuery("(min-width:1000px)");
@@ -17,7 +16,7 @@ const Incomes = () => {
   const getIncomes = async () => {
     try {
       const response = await fetch(
-        `${BASE_URL}/income/get-incomes/${user?._id}`,
+        `${INCOME_URL}/get-incomes/${user?._id}`,
         {
           method: "GET",
           headers: {
@@ -36,7 +35,7 @@ const Incomes = () => {
   const deleteIncome = async (id) => {
     try {
       const response = await fetch(
-        `${BASE_URL}/income/delete-income/${id}`,
+        `${INCOME_URL}/delete-income/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -49,7 +48,6 @@ const Incomes = () => {
       if(income?.success){
         getIncomes();
       }
-      // dispatch(addIncomes(income?.data));
     } catch (error) {
       console.log(error);
     }
