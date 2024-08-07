@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { plus } from "../utils/icons";
-import { BASE_URL,INCOME_URL } from "../utils/constants";
+import { INCOME_URL } from "../utils/constants";
 import { useSelector } from "react-redux";
 
 const Form = ({getIncomes}) => {

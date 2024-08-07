@@ -6,31 +6,31 @@ import { useDispatch, useSelector } from "react-redux";
 import IncomeItem from "./IncomeItem";
 import ExpenseForm from "./ExpenseForm";
 
-const Expenses = () => {
+const Expenses = ({getExpenses}) => {
   const isNonMobileDevice = useMediaQuery("(min-width:1000px)");
   const dispatch = useDispatch();
   const { user, token } = useSelector((store) => store?.user);
   const { totalExpense } = useSelector((store) => store?.app);
   const expense = useSelector(store=>store?.app?.expenses)
   
-  const getExpenses = async () => {
-    try {
-      const response = await fetch(
-        `${EXPENSE_URL}/get-expenses/${user?._id}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const expense = await response.json();
-      dispatch(addExpenses(expense?.data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getExpenses = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       `${EXPENSE_URL}/get-expenses/${user?._id}`,
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     const expense = await response.json();
+  //     dispatch(addExpenses(expense?.data));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const deleteExpense = async (id) => {
     try {

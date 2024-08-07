@@ -4,28 +4,69 @@ import { useMediaQuery } from '@mui/material';
 import Dashboard from '../components/Dashboard';
 import Incomes from '../components/Incomes';
 import Expenses from '../components/Expenses';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { EXPENSE_URL, INCOME_URL } from '../utils/constants';
+import { addExpenses, addIncomes } from '../utils/appSlice';
 
 const Home = () => {
-    
+  const dispatch = useDispatch(); 
   const [active, setActive] = useState(1);
   const isNonMobileDevice = useMediaQuery("(min-width:1000px)");
   const User = useSelector((store)=>store?.user)
+
+  const {user,token} = useSelector((store)=>store?.user)
+
+  const getIncomes = async () => {
+    try {
+      const response = await fetch(
+        `${INCOME_URL}/get-incomes/${user?._id}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const income = await response.json();
+      dispatch(addIncomes(income?.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getExpenses = async () => {
+    try {
+      const response = await fetch(
+        `${EXPENSE_URL}/get-expenses/${user?._id}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const expense = await response.json();
+      dispatch(addExpenses(expense?.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 
   const displayData = ()=>{
     switch (active) {
       case 1: 
-      return <Dashboard/>
+      return <Dashboard getIncomes={getIncomes} getExpenses={getExpenses}/>
       case 2: 
-      return <Dashboard/>
+      return <Dashboard getIncomes={getIncomes}  getExpenses={getExpenses}/>
       case 3: 
-      return <Incomes/>
+      return <Incomes getIncomes={getIncomes} />
       case 4: 
-      return <Expenses/>
+      return <Expenses  getExpenses={getExpenses}/>
     
       default:
-        return <Dashboard/>
+        return <Dashboard getIncomes={getIncomes} getExpenses={getExpenses}/>
     }
   }
   return (

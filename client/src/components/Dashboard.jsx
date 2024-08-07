@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Chart from "./Chart";
 import { dollar } from "../utils/icons";
 import { useSelector } from "react-redux";
 import History from "./History";
 
-const Dashboard = () => {
+const Dashboard = ({ getIncomes, getExpenses }) => {
   const { incomes, expenses, totalIncome, totalExpense } = useSelector(
     (store) => store?.app
   );
@@ -14,6 +14,12 @@ const Dashboard = () => {
       (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
     );
   };
+  
+  useEffect(() => {
+    getIncomes();
+    getExpenses();
+  }, []);
+
   return (
     <div>
       <div className="py-8 px-6 w-full gap-2">

@@ -6,31 +6,31 @@ import { addIncomes } from "../utils/appSlice";
 import { useDispatch, useSelector } from "react-redux";
 import IncomeItem from "./IncomeItem";
 
-const Incomes = () => {
+const Incomes = ({getIncomes}) => {
   const isNonMobileDevice = useMediaQuery("(min-width:1000px)");
   const dispatch = useDispatch();
   const { user, token } = useSelector((store) => store?.user);
   const { totalIncome } = useSelector((store) => store?.app);
   const income = useSelector(store=>store?.app?.incomes)
   
-  const getIncomes = async () => {
-    try {
-      const response = await fetch(
-        `${INCOME_URL}/get-incomes/${user?._id}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const income = await response.json();
-      dispatch(addIncomes(income?.data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getIncomes = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       `${INCOME_URL}/get-incomes/${user?._id}`,
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     const income = await response.json();
+  //     dispatch(addIncomes(income?.data));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const deleteIncome = async (id) => {
     try {
